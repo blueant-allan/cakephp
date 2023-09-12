@@ -1,0 +1,45 @@
+FROM ubuntu:22.04
+
+#
+# Skip interactive mode
+#
+ENV DEBIAN_FRONTEND=noninteractive
+
+#
+# Add Ondrej PPA
+#
+RUN apt-get update && apt-get install -y software-properties-common
+RUN add-apt-repository ppa:ondrej/php -y
+
+
+#
+# Install Nginx and latest PHP version 8.2.10
+#
+RUN apt-get update		    \
+    && apt-get install -y	\
+    nginx			        \
+    sqlite3			        \
+    php8.2-fpm		        \
+    php8.2-mysql		    \
+    php8.2-intl			    \
+    php8.2-mbstring		    \
+    php8.2-zip		        \
+    php8.2-xml		        \
+    php8.2-sqlite3
+
+# Web server configurations
+# Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY default /etc/nginx/sites-available/default
+
+# PHP FPM configurations
+COPY php.ini /etc/php/8.2/fpm/php.ini
+COPY php_cli.ini /etc/php/8.2/cli/php.ini
+
+EXPOSE 80
+
+WORKDIR /var/www/html
+
+CMD service php8.2-fpm start 	\
+    && nginx -g 'daemon off;'	\
+    && bash
