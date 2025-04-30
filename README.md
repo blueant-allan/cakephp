@@ -4,6 +4,7 @@ A docker container development for CakePHP.
 
 ## Supported Versions
 
+- CakePHP 5.x with PHP version 8.4.6 and Mailpit support
 - CakePHP 5.x with PHP version 8.2.2 and Mailpit support
 - CakePHP 4.x with PHP version 8.2.2
 
@@ -20,12 +21,27 @@ A docker container development for CakePHP.
 ```
 cd to docker file path
 
+i.e 5.x/8.4
+docker build -t cakephp5_php8.4-image -f Dockerfile.dev .
+```
+
+```
+cd to docker file path
+
 i.e 5.x/8.2
 docker build -t cakephp5_php8.2-image -f Dockerfile.dev .
 ```
 
-
 ## Push docker image to  Docker Hub
+
+```
+# create a tag for version 8.4
+docker tag cakephp5_php8.4-image  blueantallan/cakephp5_php8.4-image
+
+
+# push image to docker hub
+docker push blueantallan/cakephp5_php8.4-image
+```
 
 ```
 # create a tag
