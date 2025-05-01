@@ -56,5 +56,6 @@ docker push blueantallan/cakephp5_php8.2-image
 ## Test the image
 
 ```
+docker run -p 8042:80 -dit --name cakephp5-app --mount type=bind,source="$(pwd)",target=/var/www/html cakephp5_php8.4-image
 docker run -p 8042:80 -dit --name cakephp5-app --mount type=bind,source="$(pwd)",target=/var/www/html cakephp5_php8.2-image
 ```
